@@ -4,15 +4,16 @@ var garden, gardenImg;
 
 function preload() {
     //load the images here
-    // catImg = loadImage("cat1.png");
-    // catImg2 = loadImage("cat2.png");
-    // catImg3 = loadImage("cat3.png");
-    // catImg4 = loadImage("cat4.png");
-    // mouseImg = loadImage("mouse1.png");
-    // mouseImg2 = loadImage("mouse2.png");
-    // mouseImg3 = loadImage("mouse3.png");
-    // mouseImg4 = loadImage("mouse4.png");
-    // gardenImg = loadImage("garden.png");
+    catImg = loadAnimation("cat1.png");
+    catImg2 = loadAnimation("cat2.png", "cat3.png");
+    catImg4 = loadAnimation("cat4.png");
+    mouseImg = loadImage("mouse1.png");
+    mouseImg2 = loadImage("mouse2.png");
+    mouseImg3 = loadImage("mouse3.png");
+    mouseImg4 = loadImage("mouse4.png");
+    gardenImg = loadImage("garden.png");
+
+    
 }
 
 function setup(){
@@ -20,6 +21,10 @@ function setup(){
     //create tom and jerry sprites here
 
     cat = createSprite(600,200,20,20);
+    cat.addAnimation("catSitting", catImg);
+    cat.addAnimation("catWalking", catImg2);
+    cat.addAnimation("catTouched", catImg4);
+    cat.scale=0.08;
     //cat.addImage(catImg);
 
     mouse = createSprite(400,200,20,20);
@@ -43,8 +48,7 @@ function keyPressed(){
 
     if(keyDown("left")) {
         cat.velocityX=-2;
-        // cat.addAnimation("catRunning",catImg2);
-        // cat.changeAnimation("catRunning");
+        cat.changeAnimation("catWalking", catImg2);
     }
 
     // if(keyDown("right")) {
@@ -59,7 +63,7 @@ function touching() {
     if(cat.x-mouse.x <= mouse.width/2+cat.width/2 
       && mouse.x-cat.x <= mouse.width/2+cat.width/2) {
       cat.velocityX=0;
-      //cat.x;
+      cat.changeAnimation("catTouched", catImg4);
       mouse.shapeColor="red";
     }
   
